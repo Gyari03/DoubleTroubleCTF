@@ -1,0 +1,89 @@
+
+body {
+    background-color: #181a1b;
+    color: white;
+}
+
+.important-nav-item {
+    color: #e81212 !important;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+input, button, select, textarea {
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+}
+
+.card {
+    background-color: #2a2b2d;
+    color: white;
+    border: 1px solid #444;
+}
+
+
+input, button, select, textarea {
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+}
+
+input.form-control {
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+}
+
+input.form-control:focus {
+    background-color: #333;
+    color: white;
+    border-color: #666;
+    outline: none;
+}
+
+input::placeholder {
+    color: #bbb;
+    opacity: 1;
+}
+
+#search {
+    color: white;
+}
+
+#search::placeholder {
+    color: gray !important;
+}
+
+#search_button {
+    background-color: #1c4e30;
+    color: white;
+    border-color: #1c4e30;
+}
+
+#search_button:hover {
+    background-color: #27AE60;
+    border-color: #27AE60;
+}
+
+.card .card-title a {
+    font-weight: bold;
+    color: white !important;
+}
+
+.input-group .input-group-text {
+    color: white;
+    border: 1px solid #444;
+    background-color: #444;
+}
+
+#content {
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+}
+.forgot-email-input{
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+}
