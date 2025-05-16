@@ -1,0 +1,26 @@
+<%- include('header') %>
+
+<div class="main ms-3"  style="width: 350px;">
+    <form action="/login" method="POST">
+        <div class="form-floating mb-1">
+            <input name="Email" type="email" class="form-control custom-input" id="floatingEmail" placeholder="name@example.com">
+            <label for="floatingEmail">Email address</label>
+        </div>
+        <div class="form-floating">
+            <input name="Password" type="password" class="form-control custom-input" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <button type="submit" class="btn btn-dark mt-3">Log in</button>
+    </form>
+    <div>
+        No accounts yet? <a href="/register">Register here</a>
+    </div>
+
+    <div>
+        Forgot your password? You idiot <a href="/forgot-password">click here</a>
+    </div>
+
+</div>
+
+
+<%- include('footer') %>

@@ -1,0 +1,19 @@
+<%- include('header') %>
+
+<div class="container my-5">
+    <form action="/article/add" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input name="Title" id="title" type="text" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="content" class="form-label">Content (Markdown)</label>
+            <textarea name="Content" id="content" rows="15" class="form-control" required></textarea>
+        </div>
+
+        <button type="submit" id="submit-article" class="btn btn-primary">Publish Article</button>
+    </form>
+</div>
+
+<%- include('footer') %>

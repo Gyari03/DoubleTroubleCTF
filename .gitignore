@@ -1,0 +1,10 @@
+node_modules/
+
+# WebStorm config
+.idea/
+
+# Logs
+*.log
+
+# Env files
+*.env

@@ -1,0 +1,65 @@
+<%- include('header') %>
+<div class="main ms-3" style="width: 300px;">
+    <!-- Email Address Change Section -->
+    <form id="emailForm" action="/profile/edit" method="POST">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <div class="input-group">
+                <input type="email" class="form-control" name="Email" id="email" value="<%= profile.Email %>" required>
+                <button class="btn btn-outline-secondary" type="submit">Change</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Username Change Section -->
+    <form id="usernameForm" action="/profile/edit" method="POST">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <div class="input-group">
+                <input type="text" class="form-control" name="Username" id="username" value="<%= profile.Username %>" required>
+                <button class="btn btn-outline-secondary" type="submit">Change</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Password Change Section -->
+    <h2>Change Password:</h2>
+    <form id="passwordForm" action="/profile/edit" method="POST">
+        <div class="mb-3">
+            <label for="changepassword" class="form-label">New password</label>
+            <input name="Password" id="changepassword" type="password" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm password</label>
+            <input id="confirmPassword" type="password" class="form-control" required>
+        </div>
+        <p id="error-message" style="color: red; display: none;">Passwords do not match!</p>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-outline-secondary ">Change</button>
+        </div>
+    </form>
+
+    <!-- Log Out Section -->
+    <form action="/logout" method="POST">
+        <div class="input-group mt-5">
+            <button id="Logoutbutton" class="btn btn-outline-danger" type="submit">Log out</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("passwordForm").addEventListener("submit", (event) => {
+        const password = document.getElementById("changepassword");
+        const confirmPassword = document.getElementById("confirmPassword");
+        const errorMessage = document.getElementById("error-message");
+
+        if(password.value !== confirmPassword.value) {
+            event.preventDefault();
+            errorMessage.style.display = "block";
+        } else {
+            errorMessage.style.display = "none";
+        }
+    });
+</script>
+
+<%- include('footer') %>

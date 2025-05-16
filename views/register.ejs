@@ -1,0 +1,29 @@
+<%- include('header') %>
+
+
+<div class="main ms-3" style="width: 350px;">
+    <form action="/register" method="POST">
+        <div class="form-floating mb-1">
+            <input name="Email" type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" required>
+            <label for="floatingEmail">Email address</label>
+        </div>
+
+        <div class="form-floating mb-1">
+            <input name="Username" type="text" class="form-control" id="floatingUsername" placeholder="username" required>
+            <label for="floatingUsername">Username</label>
+        </div>
+
+        <div class="form-floating mb-1">
+            <input name="Password" type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="myCheck" name="remember" required>
+            <label class="form-check-label" for="myCheck">I agree to terms and services.</label>
+        </div>
+        <button type="submit" class="btn btn-dark mt-3">Register</button>
+    </form>
+</div>
+
+
+<%- include('footer') %>

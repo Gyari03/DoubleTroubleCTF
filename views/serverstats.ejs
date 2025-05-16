@@ -1,0 +1,188 @@
+<%- include('header') %>
+
+<div class="container mt-5">
+    <h1 class="mb-4">System Stats</h1>
+
+    <div class="row g-4">
+        <!-- CPU Info Card -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-cpu me-2"></i>CPU Info
+                    </h5>
+                    <div id="osInfo" class="spinner-border text-secondary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hostname -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-hostname me-2"></i>Hostname
+                    </h5>
+                    <div id="hostInfo" class="spinner-border text-secondary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UserInfo -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-userinfo me-2"></i>User logged in currently
+                    </h5>
+                    <div id="userInfo" class="spinner-border text-secondary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RAM available Info Card -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-memory me-2"></i>RAM Available
+                    </h5>
+                    <div id="ramInfo" class="spinner-border text-secondary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<script>
+
+
+    const apiHost = `${window.location.origin}/eval`;
+
+    async function fetchSystemInfo(command,elementId){
+        try{
+            const response = await fetch(`${apiHost}/${command}`);
+            const data = await response.json();
+
+            if(data.success === false){
+                throw new Error('Failed to fetch data');
+            }
+
+            const result = data.result;
+
+            const oldElement = document.getElementById(elementId);
+            if(oldElement){
+                const newElement = document.createElement('p');
+                newElement.id = elementId;
+                newElement.textContent = JSON.stringify(data);
+                oldElement.replaceWith(newElement);
+            }
+
+        }
+        catch(err) {
+            const oldElement = document.getElementById(elementId);
+            if (oldElement) {
+                const newElement = document.createElement('p');
+                newElement.id = elementId;
+                newElement.textContent = "Couldn't fetch data."
+                oldElement.replaceWith(newElement);
+            }
+        }
+    }
+
+    function convertBytesToGB(elementId) {
+        const el = document.getElementById(elementId);
+        let data;
+        let bytes;
+
+        try{
+            data = JSON.parse(el.textContent);
+        }catch(er){
+            el.textContent = "Invalid JSON data";
+            return;
+        }
+        if(data?.result){
+            bytes = data.result;
+        }
+        else{
+            el.textContent = "Couldn't fetch available RAM.";
+        }
+
+        if (!isNaN(bytes)) {
+            const gb = (bytes / (1024 ** 3)).toFixed(2);
+            el.textContent = `${gb} GB`;
+        }
+    }
+
+    function showUsername(elementId){
+        const el = document.getElementById(elementId);
+        let data;
+
+        try{
+            data = JSON.parse(el.textContent);
+        }catch(er){
+            el.textContent = "Invalid JSON data";
+            return;
+        }
+        if(data?.result?.username){
+            el.textContent = data.result.username;
+        }
+        else{
+            el.textContent = "Couldn't fetch username";
+        }
+    }
+
+    function showPlainResult(elementId) {
+        const el = document.getElementById(elementId)
+        let data;
+
+        try{
+            data = JSON.parse(el.textContent);
+        }catch(er){
+            el.textContent = "Invalid JSON data";
+            return;
+        }
+        if(data?.result){
+            el.textContent = data.result;
+        }
+        else{
+            el.textContent = "Couldn't fetch data."
+        }
+
+    }
+
+    (async () => {
+        await fetchSystemInfo('os.version()', 'osInfo');
+        showPlainResult('osInfo');
+    })();
+    (async () => {
+        await fetchSystemInfo('os.freemem()', 'ramInfo');
+        convertBytesToGB('ramInfo');
+    })();
+
+    (async () => {
+        await fetchSystemInfo('os.hostname()','hostInfo');
+        showPlainResult('hostInfo');
+    })();
+
+    (async() => {
+        await fetchSystemInfo('os.userInfo()','userInfo');
+        showUsername('userInfo');
+    })();
+
+</script>
+
+
+<%- include('footer') %>

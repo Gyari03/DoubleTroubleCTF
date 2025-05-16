@@ -1,0 +1,45 @@
+<%- include('header') %>
+
+
+<div class="main ms-3">
+
+
+    <div class="input-group mb-3 mt-4" style="width: 500px;">
+        <input id="search" class="form-control" type="text" placeholder="Search for articles" value="<%= typeof search !== 'undefined' ? search : '' %>">
+        <button id="search_button" class="btn btn-primary">Search</button>
+        <% if (user && user.Role === 'admin') { %>
+        <a href="/article/add" class="btn btn-success">Add New Article</a>
+        <% } %>
+    </div>
+
+
+    <div class="row g-4">
+        <% for (let i = 0; i < articles.length; i++) { let article = articles[i] %>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold text-white">
+                        <a href="/article/<%= article._id %>" class="text-decoration-none">
+                            <%= article.Title %>
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</div>
+
+<script>
+    const searchInput = document.getElementById('search');
+    const searchButton = document.getElementById('search_button');
+
+    searchButton.addEventListener('click', ()=>{
+        const query = searchInput.value.trim();
+        const baseUrl = window.location.pathname;
+        const newUrl = `${baseUrl}?search=${encodeURIComponent(query)}`;
+        window.location.href= newUrl;
+    })
+</script>
+
+<%- include('footer') %>
